@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Guy Auto Detailing | Your Car Guy</title>
+<meta name="description" content="The Guy Auto Detailing — car wash, wax, ceramic coating and headlight renewal. Your Car Guy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================
+   THE GUY AUTO DETAILING — SITE STYLES
+   Edit the CONFIG block in the JS at the bottom
+   to set your WhatsApp number, phone, address etc.
+   ============================================ */
+
+:root{
+  /* ---- COLOUR TOKENS: edit these to retheme the whole site ---- */
+  --bg:            #070B12;   /* base background - near-black garage tone */
+  --bg-soft:       #0B121D;   /* slightly lifted background for alt sections */
+  --surface:       #101827;   /* card / panel surface */
+  --surface-line:  #1E2A3D;   /* hairline borders on surfaces */
+
+  --royal:         #2A52E0;   /* royal blue - primary accent */
+  --royal-dim:     #16306E;   /* deep royal blue */
+  --royal-glow:    rgba(42,82,224,0.35);
+
+  --green:         #16B378;   /* signature green - secondary accent */
+  --green-dim:     #0C6B49;   /* deep green */
+  --green-glow:    rgba(22,179,120,0.35);
+
+  /* ---- METALLIC TOKENS: brushed-chrome accents layered on top of the blue/green scheme ---- */
+  --metal-1:       #cdd6e0;
+  --metal-2:       #8994a3;
+  --metal-3:       #f1f4f7;
+  --metal-gradient: linear-gradient(115deg, var(--metal-1) 0%, var(--metal-2) 22%, var(--metal-3) 40%, var(--metal-2) 58%, var(--metal-1) 75%, var(--metal-3) 100%);
+
+  --text:          #F2F5FA;
+  --text-dim:      #9FAEC4;
+  --text-faint:    #6B7A91;
+  --white:         #FFFFFF;
+
+  --radius:        14px;
+  --radius-sm:     8px;
+  --maxw:          1180px;
+
+  --font-display:  'Oswald', sans-serif;
+  --font-body:      'Inter', sans-serif;
+  --font-mono:      'JetBrains Mono', monospace;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; }
+button{ font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+.wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+section{ position:relative; }
+h1,h2,h3,h4{ font-family:var(--font-display); font-weight:600; letter-spacing:0.5px; line-height:1.1; }
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--green);
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.eyebrow::before{
+  content:'';
+  width:22px; height:1px;
+  background:var(--green);
+  display:inline-block;
+}
+.section-head{ max-width:640px; margin-bottom:52px; }
+.section-head h2{ font-size:clamp(30px,4vw,44px); margin-top:14px; text-transform:uppercase; }
+.section-head p{ color:var(--text-dim); margin-top:14px; font-size:16px; max-width:520px; }
+.section-pad{ padding:100px 0; }
+@media (max-width:720px){ .section-pad{ padding:70px 0; } }
+
+/* metallic shimmer divider — the site's signature chrome accent line */
+.chrome-line{
+  height:2px; width:100%;
+  background:var(--metal-gradient);
+  background-size:220% 100%;
+  animation:shimmer 7s linear infinite;
+}
+@keyframes shimmer{ 0%{ background-position:0% 0; } 100%{ background-position:-220% 0; } }
+
+/* reveal on scroll */
+.reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+/* buttons */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:15px 30px;
+  border-radius:999px;
+  font-family:var(--font-display);
+  font-size:14px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  font-weight:600;
+  transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+  white-space:nowrap;
+  position:relative;
+  overflow:hidden;
+}
+.btn-primary{
+  background:linear-gradient(120deg,var(--green) 0%, var(--royal) 100%);
+  color:var(--white);
+  box-shadow:0 8px 24px -6px var(--green-glow), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -4px 8px rgba(0,0,0,0.28);
+}
+.btn-primary::after{
+  content:''; position:absolute; inset:0;
+  background:repeating-linear-gradient(100deg, rgba(255,255,255,0.14) 0 2px, transparent 2px 6px);
+  mix-blend-mode:overlay; pointer-events:none;
+}
+.btn-primary:hover{ transform:translateY(-2px); filter:brightness(1.08); }
+.btn-ghost{
+  border:1px solid var(--surface-line);
+  color:var(--text);
+  background:rgba(255,255,255,0.02);
+}
+.btn-ghost:hover{ border-color:var(--metal-1); color:var(--metal-3); }
+.btn-sm{ padding:10px 20px; font-size:12px; }
+
+/* ---------------- NAV ---------------- */
+header{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:20px 0;
+  transition:background .35s ease, padding .35s ease, border-color .35s ease;
+  border-bottom:1px solid transparent;
+}
+header.scrolled{
+  background:rgba(7,11,18,0.86);
+  backdrop-filter:blur(14px);
+  padding:14px 0;
+  border-bottom:1px solid var(--surface-line);
+}
+nav{ display:flex; align-items:center; justify-content:space-between; }
+.logo{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); }
+.logo-mark{
+  width:38px; height:38px; border-radius:9px;
+  background:linear-gradient(135deg,var(--royal),var(--green));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -6px 10px rgba(0,0,0,0.28), 0 0 0 1px var(--metal-2);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:16px; color:#fff;
+  flex-shrink:0;
+}
+.logo-text{ display:flex; flex-direction:column; line-height:1.05; }
+.logo-text b{ font-size:16px; letter-spacing:1px; text-transform:uppercase; }
+.logo-text span{ font-family:var(--font-mono); font-size:10px; color:var(--green); letter-spacing:1.5px; }
+.nav-links{ display:flex; align-items:center; gap:34px; font-size:14px; font-weight:500; color:var(--text-dim); }
+.nav-links a{ transition:color .2s ease; position:relative; }
+.nav-links a:hover{ color:var(--text); }
+.nav-links a.active{ color:var(--green); }
+.nav-cta{ display:flex; align-items:center; gap:14px; }
+.burger{ display:none; flex-direction:column; gap:5px; width:26px; }
+.burger span{ height:2px; background:var(--text); border-radius:2px; transition:.3s; }
+.mobile-menu{
+  display:none; position:fixed; inset:0; z-index:99;
+  background:var(--bg); flex-direction:column;
+  padding:100px 30px 40px; gap:26px;
+}
+.mobile-menu.open{ display:flex; }
+.mobile-menu a{ font-family:var(--font-display); font-size:26px; text-transform:uppercase; }
+
+@media (max-width:860px){
+  .nav-links{ display:none; }
+  .nav-cta .btn-ghost{ display:none; }
+  .burger{ display:flex; }
+}
+
+/* ---------------- HERO ---------------- */
+.hero{
+  min-height:100vh;
+  display:flex; align-items:center;
+  padding-top:110px; padding-bottom:60px;
+  position:relative;
+  isolation:isolate;
+}
+.hero-bg{
+  position:absolute; inset:0; z-index:-1; overflow:hidden;
+}
+.hero-bg::before, .hero-bg::after{
+  content:''; position:absolute; border-radius:50%; filter:blur(90px);
+}
+.hero-bg::before{
+  width:560px; height:560px; background:var(--royal-glow);
+  top:-160px; left:-120px;
+}
+.hero-bg::after{
+  width:480px; height:480px; background:var(--green-glow);
+  bottom:-160px; right:-80px;
+}
+.hero-bg .weave{
+  position:absolute; inset:0;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 10px);
+  mask-image:radial-gradient(circle at 50% 30%, rgba(0,0,0,0.9), transparent 70%);
+}
+.hero-grid{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:60px; align-items:center; }
+@media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; } }
+
+.hero-title{
+  font-size:clamp(44px,7.4vw,86px);
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.hero-title .line{ display:block; overflow:hidden; }
+.hero-title span{
+  display:inline-block;
+  background:linear-gradient(100deg, var(--text) 25%, var(--metal-3) 35%, var(--green) 46%, var(--royal) 58%, var(--metal-3) 68%, var(--text) 80%);
+  background-size:300% 100%;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  animation:sweep 5.5s linear infinite;
+}
+@keyframes sweep{ 0%{ background-position:0% 0; } 100%{ background-position:-240% 0; } }
+
+.hero-tagline{
+  font-family:var(--font-mono);
+  color:var(--green);
+  font-size:14px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-top:22px;
+}
+.hero p.lead{
+  color:var(--text-dim); margin-top:22px; font-size:17px; max-width:480px;
+}
+.hero-actions{ display:flex; gap:16px; margin-top:38px; flex-wrap:wrap; }
+.hero-stats{ display:flex; gap:34px; margin-top:52px; flex-wrap:wrap; }
+.hero-stats div b{ font-family:var(--font-display); font-size:26px; display:block; color:var(--white); }
+.hero-stats div span{ font-size:12px; color:var(--text-faint); text-transform:uppercase; letter-spacing:1px; }
+
+.hero-panel{
+  background:linear-gradient(160deg,var(--surface),var(--bg-soft));
+  border:1px solid var(--surface-line);
+  border-radius:var(--radius);
+  padding:34px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.hero-panel::before{
+  content:''; position:absolute; top:-40%; left:-20%; width:70%; height:220%;
+  background:linear-gradient(75deg, transparent, rgba(255,255,255,0.08), transparent);
+  transform:rotate(15deg);
+  animation:shine 4.5s ease-in-out infinite;
+}
+@keyframes shine{ 0%,100%{ transform:translateX(-40%) rotate(15deg); } 50%{ transform:translateX(160%) rotate(15deg); } }
+.hero-panel h4{ font-size:13px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-faint); font-family:var(--font-mono); font-weight:500; }
+.hero-panel .flow{ display:flex; flex-direction:column; gap:0; margin-top:22px; }
+.flow-step{ display:flex; align-items:flex-start; gap:14px; padding:14px 0; position:relative; }
+.flow-step:not(:last-child)::after{
+  content:''; position:absolute; left:15px; top:38px; bottom:-2px; width:1px;
+  background:var(--surface-line);
+}
+.flow-dot{
+  width:32px; height:32px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-size:11px; font-weight:600;
+  border:1px solid var(--surface-line); background:var(--bg-soft); z-index:1;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.flow-step:nth-child(1) .flow-dot{ color:var(--royal); border-color:var(--royal-dim); }
+.flow-step:nth-child(2) .flow-dot{ color:var(--green); border-color:var(--green-dim); }
+.flow-step:nth-child(3) .flow-dot{ color:#1b2430; border-color:var(--metal-2); background:var(--metal-gradient); }
+.flow-step h5{ font-family:var(--font-display); font-size:15px; text-transform:uppercase; letter-spacing:0.5px; }
+.flow-step p{ font-size:13px; color:var(--text-dim); margin-top:2px; }
+
+/* ---------------- TRUST BAND ---------------- */
+.trust-band{
+  border-bottom:1px solid var(--surface-line);
+  background:var(--bg-soft);
+  padding:26px 0;
+}
+.trust-band .wrap{ display:flex; align-items:center; justify-content:center; gap:16px; text-align:center; flex-wrap:wrap; }
+.trust-band p{
+  font-family:var(--font-mono); font-size:13px; letter-spacing:1px; color:var(--text-dim);
+}
+.trust-band strong{ color:var(--green); }
+
+/* ---------------- PROCESS ---------------- */
+.process-track{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; position:relative; }
+@media (max-width:860px){ .process-track{ grid-template-columns:1fr; } }
+.process-track::before{
+  content:''; position:absolute; top:34px; left:8%; right:8%; height:1px;
+  background:repeating-linear-gradient(90deg, var(--metal-2) 0 8px, transparent 8px 16px);
+  opacity:0.5;
+}
+@media (max-width:860px){ .process-track::before{ display:none; } }
+.process-card{
+  background:var(--surface); border:1px solid var(--surface-line); border-radius:var(--radius);
+  padding:32px 26px; position:relative; z-index:1;
+}
+.process-num{
+  font-family:var(--font-mono); font-size:13px; letter-spacing:1px;
+  width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:20px; font-weight:600;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -2px 5px rgba(0,0,0,0.3);
+}
+.process-card:nth-child(1) .process-num{ background:var(--royal-dim); color:#B9C8FF; }
+.process-card:nth-child(2) .process-num{ background:var(--green-dim); color:#AEF4D8; }
+.process-card:nth-child(3) .process-num{ background:var(--metal-gradient); color:#1b2430; }
+.process-card h3{ font-size:20px; text-transform:uppercase; }
+.process-card p{ color:var(--text-dim); margin-top:10px; font-size:14.5px; }
+.process-card .tag{ font-family:var(--font-mono); font-size:11px; color:var(--text-faint); letter-spacing:1.5px; text-transform:uppercase; display:block; margin-top:16px; }
+
+/* ---------------- SERVICES (compact hover-expand list) ---------------- */
+.services-list{ display:flex; flex-direction:column; border:1px solid var(--surface-line); border-radius:var(--radius); overflow:hidden; }
+.service-row{
+  border-bottom:1px solid var(--surface-line);
+  background:var(--surface);
+  cursor:pointer;
+}
+.service-row:last-child{ border-bottom:none; }
+.service-row-head{
+  display:flex; align-items:center; gap:16px;
+  padding:20px 24px;
+}
+.service-index{
+  font-family:var(--font-mono); font-size:12px; color:var(--text-faint);
+  width:26px; flex-shrink:0;
+}
+.service-stage-dot{
+  width:9px; height:9px; border-radius:50%; flex-shrink:0;
+  box-shadow:0 0 0 3px rgba(255,255,255,0.04);
+}
+.service-stage-dot.wash{ background:var(--royal); }
+.service-stage-dot.coat{ background:var(--green); }
+.service-stage-dot.correct{ background:var(--metal-2); }
+.service-row-title{ flex:1; min-width:0; }
+.service-row-title h3{ font-size:17px; text-transform:uppercase; letter-spacing:0.4px; }
+.service-row-title span{ font-family:var(--font-mono); font-size:11px; color:var(--text-faint); letter-spacing:1px; text-transform:uppercase; }
+.service-chevron{
+  font-family:var(--font-mono); color:var(--text-faint); font-size:13px; flex-shrink:0;
+  transition:transform .3s ease;
+}
+.service-row.is-open .service-chevron{ transform:rotate(180deg); color:var(--green); }
+.service-row-body{
+  max-height:0; overflow:hidden;
+  transition:max-height .35s ease, opacity .3s ease;
+  opacity:0;
+}
+.service-row.is-open .service-row-body{ opacity:1; }
+.service-row-body-inner{ padding:0 24px 24px 66px; display:flex; flex-direction:column; gap:14px; }
+@media (max-width:600px){ .service-row-body-inner{ padding:0 20px 20px 20px; } }
+.service-row-body-inner p{ color:var(--text-dim); font-size:14px; }
+.service-row-body-inner ul{ display:flex; flex-direction:column; gap:7px; }
+.service-row-body-inner li{ font-size:13.5px; color:var(--text-dim); display:flex; gap:8px; align-items:flex-start; }
+.service-row-body-inner li::before{ content:'—'; color:var(--green); flex-shrink:0; }
+.service-row-body-inner .btn{ align-self:flex-start; margin-top:4px; }
+
+@media (hover:hover){
+  .service-row:hover{ background:var(--bg-soft); }
+  .service-row:hover .service-row-body{ opacity:1; }
+}
+
+/* ---------------- GALLERY ---------------- */
+.compare-wrap{ max-width:640px; margin:0 auto; }
+.compare{
+  position:relative; border-radius:var(--radius); overflow:hidden; aspect-ratio:16/10;
+  border:1px solid var(--surface-line); user-select:none;
+}
+.compare-layer{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:6px; }
+.compare-after{
+  background:linear-gradient(160deg,#0e2140,#0a3a2c 60%, #123a63);
+}
+.compare-before{
+  background:linear-gradient(160deg,#26241f,#33302a);
+  filter:saturate(0.5) brightness(0.85);
+}
+.compare-before-wrap{ position:absolute; inset:0; overflow:hidden; }
+.compare-tag{
+  position:absolute; top:14px; font-family:var(--font-mono); font-size:11px; letter-spacing:1.5px;
+  padding:5px 10px; border-radius:99px; background:rgba(0,0,0,0.45); backdrop-filter:blur(4px); text-transform:uppercase;
+}
+.compare-tag.left{ left:14px; }
+.compare-tag.right{ right:14px; }
+.compare-label{ font-family:var(--font-display); font-size:24px; letter-spacing:1px; opacity:0.85; text-transform:uppercase; }
+.compare-sub{ font-family:var(--font-mono); font-size:11px; color:rgba(255,255,255,0.55); text-transform:uppercase; letter-spacing:1px; }
+.compare-handle{
+  position:absolute; top:0; bottom:0; width:0; z-index:5;
+  pointer-events:none;
+}
+.compare-handle::before{
+  content:''; position:absolute; top:0; bottom:0; left:0; width:2px; background:var(--metal-gradient); box-shadow:0 0 12px rgba(255,255,255,0.6);
+}
+.compare-handle::after{
+  content:'⇔'; position:absolute; top:50%; left:0; transform:translate(-50%,-50%);
+  width:38px; height:38px; border-radius:50%; background:var(--metal-gradient); color:#1b2430;
+  display:flex; align-items:center; justify-content:center; font-size:15px; box-shadow:0 4px 14px rgba(0,0,0,0.4);
+}
+.compare-range{
+  position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:ew-resize; margin:0; z-index:6;
+}
+.gallery-cap{ margin-top:14px; text-align:center; }
+.gallery-cap h4{ font-family:var(--font-display); font-size:15px; text-transform:uppercase; }
+.gallery-cap p{ font-size:13px; color:var(--text-faint); margin-top:2px; }
+
+.portfolio-head{ margin-top:76px; margin-bottom:30px; display:flex; align-items:baseline; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+.portfolio-head h3{ font-size:20px; text-transform:uppercase; }
+.portfolio-head p{ color:var(--text-faint); font-size:13.5px; font-family:var(--font-mono); }
+
+.portfolio-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+@media (max-width:900px){ .portfolio-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:560px){ .portfolio-grid{ grid-template-columns:1fr; } }
+.portfolio-tile{
+  aspect-ratio:1/1; border-radius:var(--radius-sm); border:1px solid var(--surface-line);
+  display:flex; align-items:center; justify-content:center; flex-direction:column; gap:6px;
+  position:relative; overflow:hidden;
+}
+.portfolio-tile span.name{ font-family:var(--font-display); font-size:14px; text-transform:uppercase; opacity:0.9; }
+.portfolio-tile span.tag{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.55); }
+.portfolio-tile::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.35));
+}
+
+.gallery-note{
+  margin-top:36px; padding:18px 22px; border:1px dashed var(--surface-line); border-radius:var(--radius-sm);
+  font-family:var(--font-mono); font-size:12.5px; color:var(--text-faint); line-height:1.7;
+}
+.gallery-note b{ color:var(--green); }
+
+/* ---------------- REVIEWS ---------------- */
+.reviews-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+@media (max-width:900px){ .reviews-grid{ grid-template-columns:1fr; } }
+.review-card{
+  background:var(--surface); border:1px solid var(--surface-line); border-radius:var(--radius); padding:26px;
+  display:flex; flex-direction:column; gap:14px;
+}
+.stars{ color:var(--green); font-size:15px; letter-spacing:2px; }
+.review-card p.quote{ color:var(--text); font-size:14.5px; }
+.review-who{ display:flex; align-items:center; gap:10px; margin-top:auto; }
+.avatar{
+  width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg,var(--royal),var(--green));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.4);
+  display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:13px; color:#fff;
+}
+.review-who div span{ display:block; font-size:12px; color:var(--text-faint); }
+.reviews-cta{ margin-top:38px; display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+.google-badge{ display:flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:13px; color:var(--text-dim); }
+.google-badge b{ color:var(--white); }
+
+/* ---------------- BOOKING ---------------- */
+.booking-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:start; }
+@media (max-width:900px){ .booking-wrap{ grid-template-columns:1fr; } }
+.booking-info .whatsapp-cta{
+  background:linear-gradient(160deg,var(--surface),var(--bg-soft)); border:1px solid var(--surface-line);
+  border-radius:var(--radius); padding:26px; margin-bottom:22px;
+}
+.booking-info .whatsapp-cta h3{ font-size:17px; text-transform:uppercase; }
+.booking-info .whatsapp-cta p{ color:var(--text-dim); font-size:14px; margin:10px 0 18px; }
+.contact-line{ display:flex; gap:12px; align-items:center; color:var(--text-dim); font-size:14px; margin-top:12px; }
+.contact-line b{ color:var(--text); font-weight:600; }
+
+form.book-form{ display:flex; flex-direction:column; gap:16px; }
+.form-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media (max-width:520px){ .form-row{ grid-template-columns:1fr; } }
+.field label{ display:block; font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--text-faint); margin-bottom:8px; font-family:var(--font-mono); }
+.field input, .field select, .field textarea{
+  width:100%; background:var(--surface); border:1px solid var(--surface-line); border-radius:var(--radius-sm);
+  padding:13px 14px; color:var(--text); font-family:var(--font-body); font-size:14px; outline:none; transition:border-color .2s ease;
+}
+.field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--green); }
+.field textarea{ resize:vertical; min-height:90px; }
+.book-form .btn{ margin-top:6px; }
+.form-note{ font-size:12px; color:var(--text-faint); margin-top:4px; }
+
+/* ---------------- FOOTER ---------------- */
+footer{ border-top:1px solid var(--surface-line); padding:60px 0 30px; background:var(--bg-soft); }
+.footer-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+@media (max-width:720px){ .footer-grid{ grid-template-columns:1fr; gap:30px; } }
+.footer-grid h5{ font-family:var(--font-mono); font-size:12px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-faint); margin-bottom:16px; }
+.footer-grid ul{ display:flex; flex-direction:column; gap:10px; font-size:14px; color:var(--text-dim); }
+.footer-grid ul a:hover{ color:var(--green); }
+.footer-slogan{ font-family:var(--font-display); font-size:22px; text-transform:uppercase; margin-top:10px; }
+.footer-bottom{
+  display:flex; justify-content:space-between; align-items:center; padding-top:24px; border-top:1px solid var(--surface-line);
+  font-size:12.5px; color:var(--text-faint); flex-wrap:wrap; gap:10px;
+}
+
+/* floating whatsapp button */
+.float-wa{
+  position:fixed; bottom:24px; right:24px; z-index:90;
+  width:58px; height:58px; border-radius:50%;
+  background:linear-gradient(135deg,var(--green),var(--royal));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -4px 8px rgba(0,0,0,0.3);
+  display:flex; align-items:center; justify-content:center;
+  animation:pulse 2.6s ease-in-out infinite;
+}
+@keyframes pulse{ 0%,100%{ box-shadow:0 10px 30px -6px rgba(22,179,120,0.4); } 50%{ box-shadow:0 10px 40px -4px rgba(42,82,224,0.55); } }
+.float-wa svg{ width:28px; height:28px; fill:#fff; }
+
+.toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--surface); border:1px solid var(--green); color:var(--text);
+  padding:14px 22px; border-radius:99px; font-size:13.5px; z-index:200;
+  opacity:0; transition:opacity .3s ease, transform .3s ease; pointer-events:none;
+}
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+::selection{ background:var(--green); color:#04140c; }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#home" class="logo">
+        <span class="logo-mark">TG</span>
+        <span class="logo-text"><b>The Guy</b><span>AUTO DETAILING</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#process">Process</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#book">Book</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#book" class="btn btn-ghost btn-sm">Book Now</a>
+        <button class="burger" id="burgerBtn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#process">Process</a>
+  <a href="#services">Services</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#book">Book</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-bg"><div class="weave"></div></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Pretoria &amp; Surrounds</div>
+      <h1 class="hero-title">
+        <span class="line"><span>THE GUY</span></span>
+        <span class="line"><span>AUTO DETAILING</span></span>
+      </h1>
+      <p class="hero-tagline">Your Car Guy</p>
+      <p class="lead">From a full wash to wax and ceramic coating — every vehicle gets the same standard. Finished right, every time, using the finest products, tested for perfection.</p>
+      <div class="hero-actions">
+        <a href="#book" class="btn btn-primary">Book a Consultation</a>
+        <a href="#gallery" class="btn btn-ghost">See The Work</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>6</b><span>Services Offered</span></div>
+        <div><b>3</b><span>Stage Process</span></div>
+        <div><b>100%</b><span>Finest Products</span></div>
+      </div>
+    </div>
+    <div class="hero-panel reveal">
+      <h4>Our Process</h4>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-dot">01</div>
+          <div><h5>Wash</h5><p>A thorough decontamination of every panel</p></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">02</div>
+          <div><h5>Correct</h5><p>Machine polishing lifts swirls &amp; oxidation</p></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">03</div>
+          <div><h5>Coat</h5><p>Wax or ceramic protection locks in the shine</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="chrome-line"></div>
+
+<!-- ============ TRUST BAND ============ -->
+<div class="trust-band">
+  <div class="wrap">
+    <p>✦ We only use <strong>the finest products</strong>, tested for perfection — on every vehicle, every time.</p>
+  </div>
+</div>
+
+<!-- ============ PROCESS ============ -->
+<section class="section-pad" id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">How It Works</div>
+      <h2>Wash. Correct. Coat.</h2>
+      <p>Every service we offer sits somewhere on this line. We never skip a stage — the protection only lasts if the paint underneath it is prepped right first.</p>
+    </div>
+    <div class="process-track">
+      <div class="process-card reveal">
+        <div class="process-num">01</div>
+        <h3>Wash &amp; Prep</h3>
+        <p>A full decontamination wash lifts dirt, iron and tar so nothing gets dragged across your paint during the next stage. This is where Stage 1 &amp; Stage 2 detailing live.</p>
+        <span class="tag">Stage 1 · Stage 2</span>
+      </div>
+      <div class="process-card reveal">
+        <div class="process-num">02</div>
+        <h3>Correction</h3>
+        <p>Machine polishing cuts back swirl marks and oxidation to reveal the paint underneath — built into Stage 2 and Full Detail, and finished off with headlight renewal where needed.</p>
+        <span class="tag">Included in Stage 2 &amp; Full Detail</span>
+      </div>
+      <div class="process-card reveal">
+        <div class="process-num">03</div>
+        <h3>Coat &amp; Protect</h3>
+        <p>A wax layer or a professional-grade ceramic coating seals the work in — hydrophobic, weather-resistant, and built to keep that finish looking like day one.</p>
+        <span class="tag">Wax · Ceramic Coating</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="section-pad" id="services" style="background:var(--bg-soft); border-top:1px solid var(--surface-line); border-bottom:1px solid var(--surface-line);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">What We Offer</div>
+      <h2>Services</h2>
+      <p>Six services, one flow: wash, then correct, then coat. Hover a row (or tap it on mobile) to see what's included. Not sure which one your car needs? Book a free consultation and we'll tell you straight.</p>
+    </div>
+
+    <div class="services-list reveal">
+
+      <div class="service-row" data-row>
+        <div class="service-row-head">
+          <span class="service-index">01</span>
+          <span class="service-stage-dot wash"></span>
+          <div class="service-row-title">
+            <h3>Stage 1 Detail</h3>
+            <span>Maintenance wash &amp; decontamination</span>
+          </div>
+          <span class="service-chevron">▾</span>
+        </div>
+        <div class="service-row-body">
+          <div class="service-row-body-inner">
+            <p>The essential refresh. Good for regular upkeep between deeper details, not for a car that needs real work.</p>
+            <ul>
+              <li>Foam pre-wash and hand wash</li>
+              <li>Wheel, tyre and arch cleaning</li>
+              <li>Iron and tar decontamination</li>
+              <li>Interior vacuum and wipe-down</li>
+              <li>Tyre dressing and window clean</li>
+            </ul>
+            <a href="#book" class="btn btn-ghost btn-sm" data-service="Stage 1 Detail">Enquire About This</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row" data-row>
+        <div class="service-row-head">
+          <span class="service-index">02</span>
+          <span class="service-stage-dot wash"></span>
+          <div class="service-row-title">
+            <h3>Stage 2 Detail</h3>
+            <span>Enhancement detail</span>
+          </div>
+          <span class="service-chevron">▾</span>
+        </div>
+        <div class="service-row-body">
+          <div class="service-row-body-inner">
+            <p>Everything in Stage 1, plus a gloss-enhancing polish for a noticeably deeper shine without a full coating job.</p>
+            <ul>
+              <li>Everything in Stage 1</li>
+              <li>Clay bar paint decontamination</li>
+              <li>Machine-applied gloss enhancement</li>
+              <li>Interior deep clean</li>
+              <li>Glass polish, in and out</li>
+            </ul>
+            <a href="#book" class="btn btn-ghost btn-sm" data-service="Stage 2 Detail">Enquire About This</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row" data-row>
+        <div class="service-row-head">
+          <span class="service-index">03</span>
+          <span class="service-stage-dot wash"></span>
+          <div class="service-row-title">
+            <h3>Full Detail</h3>
+            <span>Complete interior &amp; exterior</span>
+          </div>
+          <span class="service-chevron">▾</span>
+        </div>
+        <div class="service-row-body">
+          <div class="service-row-body-inner">
+            <p>The complete reset, inside and out. For cars that need everything addressed in one sitting.</p>
+            <ul>
+              <li>Full exterior wash and decontamination</li>
+              <li>Machine polish for gloss and clarity</li>
+              <li>Interior shampoo and steam clean</li>
+              <li>Engine bay clean and dress</li>
+              <li>Trim and plastic restoration</li>
+            </ul>
+            <a href="#book" class="btn btn-ghost btn-sm" data-service="Full Detail">Enquire About This</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row" data-row>
+        <div class="service-row-head">
+          <span class="service-index">04</span>
+          <span class="service-stage-dot coat"></span>
+          <div class="service-row-title">
+            <h3>Wax Protection</h3>
+            <span>Coat &amp; protect</span>
+          </div>
+          <span class="service-chevron">▾</span>
+        </div>
+        <div class="service-row-body">
+          <div class="service-row-body-inner">
+            <p>A traditional wax layer for a warm, deep shine and a solid layer of short-to-medium term protection. A good entry point between full coating jobs.</p>
+            <ul>
+              <li>Surface prep and decontamination</li>
+              <li>Hand or machine-applied wax layer</li>
+              <li>Water-beading protection</li>
+              <li>Deep, warm gloss finish</li>
+            </ul>
+            <a href="#book" class="btn btn-ghost btn-sm" data-service="Wax Protection">Enquire About This</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row" data-row>
+        <div class="service-row-head">
+          <span class="service-index">05</span>
+          <span class="service-stage-dot coat"></span>
+          <div class="service-row-title">
+            <h3>Ceramic Coating</h3>
+            <span>Coat &amp; protect</span>
+          </div>
+          <span class="service-chevron">▾</span>
+        </div>
+        <div class="service-row-body">
+          <div class="service-row-body-inner">
+            <p>The finishing armour that locks the shine in for the long run. Long-term hydrophobic, chemical-resistant protection, best applied once the paint is fully corrected.</p>
+            <ul>
+              <li>Surface prep and final decontamination</li>
+              <li>Professional-grade ceramic application</li>
+              <li>Hydrophobic, UV and chemical resistance</li>
+              <li>Deep, long-lasting gloss</li>
+            </ul>
+            <a href="#book" class="btn btn-primary btn-sm" data-service="Ceramic Coating">Enquire About This</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row" data-row>
+        <div class="service-row-head">
+          <span class="service-index">06</span>
+          <span class="service-stage-dot correct"></span>
+          <div class="service-row-title">
+            <h3>Headlight Renewal</h3>
+            <span>Restoration &amp; UV sealant</span>
+          </div>
+          <span class="service-chevron">▾</span>
+        </div>
+        <div class="service-row-body">
+          <div class="service-row-body-inner">
+            <p>Oxidised, yellowed lenses restored to clear and sealed against UV so it doesn't come straight back.</p>
+            <ul>
+              <li>Wet-sand of the oxidised lens layer</li>
+              <li>Multi-stage machine polish</li>
+              <li>UV-protective sealant application</li>
+              <li>Better night visibility and safety</li>
+            </ul>
+            <a href="#book" class="btn btn-ghost btn-sm" data-service="Headlight Renewal">Enquire About This</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="section-pad" id="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Proof</div>
+      <h2>Before &amp; After</h2>
+      <p>Drag the slider to see the difference. Replace this placeholder panel with your own photo — instructions are in the code comments and the README.</p>
+    </div>
+
+    <div class="compare-wrap reveal">
+      <div class="compare" data-compare>
+        <div class="compare-layer compare-after">
+          <span class="compare-label">AFTER</span>
+          <span class="compare-sub">Ceramic Coated</span>
+        </div>
+        <div class="compare-before-wrap" data-before-wrap style="width:50%;">
+          <div class="compare-layer compare-before" style="width:400%; position:absolute; inset:0;">
+            <span class="compare-label">BEFORE</span>
+            <span class="compare-sub">Faded &amp; Swirled</span>
+          </div>
+        </div>
+        <span class="compare-tag left">Before</span>
+        <span class="compare-tag right">After</span>
+        <div class="compare-handle" data-handle style="left:50%;"></div>
+        <input type="range" class="compare-range" min="0" max="100" value="50" data-range aria-label="Drag to compare before and after">
+      </div>
+      <div class="gallery-cap"><h4>Sedan — Full Detail</h4><p>Wax enhancement + gloss polish</p></div>
+    </div>
+
+    <div class="portfolio-head reveal">
+      <h3>More of the work</h3>
+      <p>// a standard gallery — swap each tile for a photo of a car you've done</p>
+    </div>
+
+    <div class="portfolio-grid reveal">
+      <div class="portfolio-tile" style="background:linear-gradient(160deg,#0e2140,#0a3a2c);"><span class="name">Hatchback</span><span class="tag">Stage 2 Detail</span></div>
+      <div class="portfolio-tile" style="background:linear-gradient(160deg,#123a63,#0c2a3c);"><span class="name">SUV</span><span class="tag">Ceramic Coating</span></div>
+      <div class="portfolio-tile" style="background:linear-gradient(160deg,#0f3d33,#123a63);"><span class="name">Bakkie</span><span class="tag">Full Detail</span></div>
+      <div class="portfolio-tile" style="background:linear-gradient(160deg,#16306e,#0c6b49);"><span class="name">Sedan</span><span class="tag">Wax Protection</span></div>
+      <div class="portfolio-tile" style="background:linear-gradient(160deg,#0c2a3c,#0e2140);"><span class="name">Coupe</span><span class="tag">Headlight Renewal</span></div>
+      <div class="portfolio-tile" style="background:linear-gradient(160deg,#0a3a2c,#16306e);"><span class="name">SUV</span><span class="tag">Stage 1 Detail</span></div>
+    </div>
+
+    <div class="gallery-note">
+      <b>Editing note:</b> the slider panel and the six tiles below are placeholders built from CSS gradients so the site works before you've loaded photos. Replace a tile's inline background with a real photo by swapping the <span style="color:#fff">style="background:..."</span> for <span style="color:#fff">&lt;img src="images/yourphoto.jpg"&gt;</span> — full steps are in the README.
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section-pad" id="reviews" style="background:var(--bg-soft); border-top:1px solid var(--surface-line); border-bottom:1px solid var(--surface-line);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Client Feedback</div>
+      <h2>Reviews</h2>
+      <p>A few words from clients — and a direct link to our full review history on Google.</p>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Booked a Stage 2 detail and the car came back looking newer than when I bought it. Didn't expect that level of gloss."</p>
+        <div class="review-who">
+          <div class="avatar">R</div>
+          <div><b>Riaan P.</b><span>Stage 2 Detail</span></div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Had bad swirl marks on a black car — always the hardest colour to get right. The full detail sorted it out completely."</p>
+        <div class="review-who">
+          <div class="avatar">N</div>
+          <div><b>Naledi M.</b><span>Full Detail</span></div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Ceramic coating has held up through two summers of dust already. Water just falls off it. Worth every cent."</p>
+        <div class="review-who">
+          <div class="avatar">J</div>
+          <div><b>Johan V.</b><span>Ceramic Coating</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews-cta">
+      <a href="https://www.google.com/search?q=The+Guy+Auto+Detailing+reviews" target="_blank" rel="noopener" class="btn btn-ghost">Read All Reviews on Google</a>
+      <div class="google-badge"><b>★ 5.0</b> average across Google Reviews</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section class="section-pad" id="book">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Let's Get Your Car Sorted</div>
+      <h2>Book a Consultation</h2>
+      <p>Fill in a few details and we'll open a WhatsApp chat pre-filled with your info — or message us directly if you'd rather skip the form.</p>
+    </div>
+
+    <div class="booking-wrap">
+      <div class="booking-info reveal">
+        <div class="whatsapp-cta">
+          <h3>Prefer to just chat?</h3>
+          <p>Tap below to message The Guy directly on WhatsApp — no form required.</p>
+          <a href="#" id="waDirectBtn" class="btn btn-primary" target="_blank" rel="noopener">
+            Chat on WhatsApp
+          </a>
+        </div>
+        <div class="contact-line">📍 <b>Based in:</b>&nbsp; Pretoria, Gauteng</div>
+        <div class="contact-line">📞 <b>Call / WhatsApp:</b>&nbsp; <span id="phoneDisplay">082 000 0000</span></div>
+        <div class="contact-line">🕒 <b>Hours:</b>&nbsp; Mon–Sat, 08:00–17:00</div>
+      </div>
+
+      <form class="book-form reveal" id="bookingForm">
+        <div class="form-row">
+          <div class="field">
+            <label for="fname">Full Name</label>
+            <input type="text" id="fname" required placeholder="Your name">
+          </div>
+          <div class="field">
+            <label for="fphone">Your Phone</label>
+            <input type="tel" id="fphone" required placeholder="082 000 0000">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="fvehicle">Vehicle Make &amp; Model</label>
+            <input type="text" id="fvehicle" required placeholder="e.g. VW Polo">
+          </div>
+          <div class="field">
+            <label for="fsize">Vehicle Size</label>
+            <select id="fsize">
+              <option>Small</option>
+              <option>Medium</option>
+              <option>Large</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fservice">Service Interested In</label>
+          <select id="fservice">
+            <option>Stage 1 Detail</option>
+            <option>Stage 2 Detail</option>
+            <option>Full Detail</option>
+            <option>Wax Protection</option>
+            <option>Ceramic Coating</option>
+            <option>Headlight Renewal</option>
+            <option>Not sure — need advice</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="fmessage">Anything else we should know?</label>
+          <textarea id="fmessage" placeholder="Preferred date, condition of the car, questions..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send to WhatsApp</button>
+        <p class="form-note">Submitting opens WhatsApp with your details pre-filled — nothing is sent until you hit send there.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">
+          <span class="logo-mark">TG</span>
+          <span class="logo-text"><b>The Guy</b><span>AUTO DETAILING</span></span>
+        </div>
+        <p class="footer-slogan">Your Car Guy</p>
+        <p style="color:var(--text-dim); font-size:14px; margin-top:12px; max-width:340px;">We only use the finest products, tested for perfection — every wash, every wax, every coat.</p>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#process">Our Process</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Get In Touch</h5>
+        <ul>
+          <li><a href="#book">Book a Consultation</a></li>
+          <li><a href="#" id="waFooterLink" target="_blank" rel="noopener">WhatsApp Us</a></li>
+          <li><a href="https://www.google.com/search?q=The+Guy+Auto+Detailing+reviews" target="_blank" rel="noopener">Google Reviews</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> The Guy Auto Detailing. All rights reserved.</span>
+      <span>Your Car Guy</span>
+    </div>
+  </div>
+</footer>
+
+<a href="#" id="floatWaBtn" class="float-wa" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.198.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-1.744-.872-2.884-1.556-4.03-3.527-.305-.526.305-.489.874-1.63.098-.198.05-.371-.05-.52-.099-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.05 3.13 4.966 4.263 2.916 1.132 2.916.755 3.44.7.524-.05 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003c-5.522 0-10 4.477-10 10 0 1.98.577 3.83 1.573 5.383L2 22l4.746-1.545A9.94 9.94 0 0 0 12.004 22c5.523 0 10-4.477 10-10s-4.477-10-10-10zm0 18.181a8.14 8.14 0 0 1-4.15-1.135l-.297-.176-2.813.916.923-2.741-.194-.282a8.15 8.15 0 0 1-1.278-4.383c0-4.51 3.671-8.181 8.181-8.181 4.51 0 8.182 3.671 8.182 8.181 0 4.511-3.672 8.182-8.182 8.182z"/></svg>
+</a>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==================================================================
+   CONFIG — edit these values for your business.
+   ================================================================== */
+const CONFIG = {
+  // WhatsApp number in international format, NO plus sign, NO spaces.
+  // South African example shown — 082 000 0000 becomes 27820000000
+  whatsappNumber: "27820000000",   // TODO: replace with your real WhatsApp number
+  displayPhone: "082 000 0000",    // TODO: replace with your real display number
+  businessName: "The Guy Auto Detailing"
+};
+
+document.getElementById('phoneDisplay').textContent = CONFIG.displayPhone;
+document.getElementById('year').textContent = new Date().getFullYear();
+
+function waLink(message){
+  const text = encodeURIComponent(message);
+  return `https://wa.me/${CONFIG.whatsappNumber}?text=${text}`;
+}
+
+const defaultMsg = `Hi ${CONFIG.businessName}! I'd like to book a consultation.`;
+document.getElementById('waDirectBtn').href = waLink(defaultMsg);
+document.getElementById('waFooterLink').href = waLink(defaultMsg);
+document.getElementById('floatWaBtn').href = waLink(defaultMsg);
+
+/* Pre-fill the service select when an "Enquire" button is clicked */
+document.querySelectorAll('[data-service]').forEach(btn=>{
+  btn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    const service = btn.getAttribute('data-service');
+    const select = document.getElementById('fservice');
+    if(select){
+      [...select.options].forEach(o=>{ if(o.value === service || o.text === service) select.value = o.value; });
+    }
+    document.getElementById('book').scrollIntoView({behavior:'smooth'});
+    document.getElementById('fname')?.focus();
+  });
+});
+
+/* Booking form -> WhatsApp deep link */
+document.getElementById('bookingForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('fphone').value.trim();
+  const vehicle = document.getElementById('fvehicle').value.trim();
+  const size = document.getElementById('fsize').value;
+  const service = document.getElementById('fservice').value;
+  const message = document.getElementById('fmessage').value.trim();
+
+  const text = `Hi ${CONFIG.businessName}, I'd like to book a consultation.
+` +
+    `Name: ${name}
+Phone: ${phone}
+Vehicle: ${vehicle} (${size})
+Service: ${service}` +
+    (message ? `
+Notes: ${message}` : '');
+
+  window.open(waLink(text), '_blank');
+  showToast("Opening WhatsApp with your details...");
+});
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=> t.classList.remove('show'), 3200);
+}
+
+/* Sticky header state */
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', ()=>{
+  header.classList.toggle('scrolled', window.scrollY > 30);
+}, {passive:true});
+
+/* Mobile menu toggle */
+const burger = document.getElementById('burgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', ()=>{
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> mobileMenu.classList.remove('open')));
+
+/* Active nav link on scroll */
+const sections = ['process','services','gallery','reviews','book'].map(id=>document.getElementById(id));
+const navLinkEls = document.querySelectorAll('.nav-links a');
+const navObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navLinkEls.forEach(l=> l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
+    }
+  });
+}, {rootMargin:'-40% 0px -50% 0px'});
+sections.forEach(s=> s && navObserver.observe(s));
+
+/* Reveal on scroll */
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=> revealObserver.observe(el));
+
+/* Before/After compare slider */
+document.querySelectorAll('[data-compare]').forEach(container=>{
+  const range = container.querySelector('[data-range]');
+  const beforeWrap = container.querySelector('[data-before-wrap]');
+  const handle = container.querySelector('[data-handle]');
+  function update(val){
+    beforeWrap.style.width = val + '%';
+    handle.style.left = val + '%';
+  }
+  range.addEventListener('input', ()=> update(range.value));
+  update(range.value);
+});
+
+/* Services list — tap/click toggle (hover handles it automatically on desktop via CSS) */
+document.querySelectorAll('[data-row]').forEach(row=>{
+  const head = row.querySelector('.service-row-head');
+  const body = row.querySelector('.service-row-body');
+  head.addEventListener('click', ()=>{
+    row.classList.toggle('is-open');
+    body.style.maxHeight = row.classList.contains('is-open') ? body.scrollHeight + 'px' : '0px';
+  });
+});
+</script>
+
+</body>
+</html>
